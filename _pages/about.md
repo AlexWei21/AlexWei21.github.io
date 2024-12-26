@@ -12,20 +12,24 @@ I'm a Research Associate at [Farhat Lab](https://scholar.harvard.edu/mahafarhat/
 Research Experience
 ======
 **Harvard Medical School**\
-Graduate Research Assistant 2022.7 - 2023.7\
-Research Associate 2023.7 - 2025.7
+2022.7 - 2025.7\
+Graduate Research Assistant -> Research Associate at [Farhat Lab](https://scholar.harvard.edu/mahafarhat/home)
 
 **Harvard Pilgrim Health Inc.**\
-Research Associate (Part-time) 2024.7 - 2025.7
+2024.7 - 2025.7 \
+Research Associate (Part-time) at [Kanjilal Lab](https://www.populationmedicine.org/skanjilal)
 
 **Harvard Business School**\
-Research Associate (Part-time) 2023.7 - 2024.7
+2023.7 - 2024.7 \
+Research Associate (Part-time) at [Li Lab](https://www.michaellz.com/)
 
 **Brigham and Women's Hospital**\
-Research Trainee 2022.12 - 2023.12
+2022.12 - 2023.12 \
+Research Trainee with [Dr. Sanjat Kanjilal](https://www.populationmedicine.org/skanjilal)
 
 **Wake Forest University**\
-_Undergraduate Research Assistant_ 2022.9 - 2023.12
+2022.9 - 2023.12 \
+Undergraduate Research Assistant at [Chen Lab](https://chenm.sites.wfu.edu/)
 
 Education
 ======
