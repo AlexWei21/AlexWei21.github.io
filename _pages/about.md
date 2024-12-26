@@ -9,7 +9,29 @@ redirect_from:
 
 I'm a Research Associate at [Farhat Lab](https://scholar.harvard.edu/mahafarhat/home) at Harvard Medical School Department of Biomedical Informatics. My research focuses on the application of Artificial Intelligence (AI) in  Drug Discovery, System Biology, and Clinical Research.
 
+Research Experience
+======
+**Harvard Medical School**
+Graduate Research Assistant 2022.7 - 2023.7
+Research Associate 2023.7 - 2025.7
 
+**Harvard Pilgrim Health Inc.**
+Research Associate (Part-time) 2024.7 - 2025.7
+
+**Harvard Business School** 
+Research Associate (Part-time) 2023.7 - 2024.7
+
+**Wake Forest University**
+Undergraduate Research Assistant 2022.9 - 2023.12
+
+Education
+======
+**Harvard T.H. Chan School of Public Health**
+Computational Biology and Quantitative Genetics M.S.
+
+**Wake Forest University** 
+Computer Science B.S.
+Biology B.S.
 
 
 
