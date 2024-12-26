@@ -32,6 +32,7 @@ Education
 **Harvard T.H. Chan School of Public Health**\
 M.S. - Computational Biology and Quantitative Genetics
 
+**Wake Forest University**
 B.S. - Computer Science\
 B.S. - Biology
 
