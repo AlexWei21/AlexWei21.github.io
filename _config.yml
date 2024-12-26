@@ -23,7 +23,7 @@ author:
   # Biographic information
   avatar           : "profile.png"
   name             : "Ziming Wei (Alex)"
-  pronouns         : "he/him"
+  pronouns         : # "he/him"
   bio              : "Research Associate at Harvard Medical School working on Computational Drug Discovery, AI4Science, and Clinical Research"
   location         : "Boston, MA"
   employer         : "Harvard Medical School"
