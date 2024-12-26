@@ -21,17 +21,19 @@ Research Associate (Part-time) 2024.7 - 2025.7
 **Harvard Business School**\
 Research Associate (Part-time) 2023.7 - 2024.7
 
+**Brigham and Women's Hospital**\
+Research Trainee 2022.12 - 2023.12
+
 **Wake Forest University**\
-Undergraduate Research Assistant 2022.9 - 2023.12
+_Undergraduate Research Assistant_ 2022.9 - 2023.12
 
 Education
 ======
 **Harvard T.H. Chan School of Public Health**\
-Computational Biology and Quantitative Genetics M.S.
+M.S. - Computational Biology and Quantitative Genetics
 
-**Wake Forest University** \
-Computer Science B.S.\
-Biology B.S.
+B.S. - Computer Science\
+B.S. - Biology
 
 
 
