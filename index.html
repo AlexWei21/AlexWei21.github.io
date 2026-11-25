@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ziming Wei (Alex) — AI agents and models for drug discovery and protein design</title>
+<meta name="description" content="Ziming Wei (Alex) is a PhD candidate in Computational Biomedicine at NYU Grossman School of Medicine, building AI agents and models for drug discovery and protein design.">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f0d;
+  --bg-raised:#0e1512;
+  --surface:#121a16;
+  --line:#22302a;
+  --line-strong:#33453c;
+  --text:#e9f0ea;
+  --muted:#a3b1a9;
+  --dim:#84968c;
+  --accent:#b9ff4b;
+  --accent-ink:#0b1208;
+  --accent-cool:#6ec6ff;
+  --accent-soft:rgba(185,255,75,.12);
+  --accent-line:rgba(185,255,75,.35);
+  --font-display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --wrap:1160px;
+  --gutter:clamp(20px,4vw,40px);
+  --radius:14px;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{color-scheme:dark;-webkit-text-size-adjust:100%;scroll-padding-top:68px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img,svg{max-width:100%}
+a{color:inherit}
+em{font-style:italic}
+::selection{background:var(--accent);color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:10px 14px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font:600 .9rem/1 var(--font-body);text-decoration:none}
+.skip:focus{top:12px}
+
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 20px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;color:var(--text);font:600 .92rem/1 var(--font-body);text-decoration:none;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.btn:hover{border-color:var(--text);transform:translateY(-1px)}
+.btn--primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn--primary:hover{background:#cdff80;border-color:#cdff80}
+.btn--sm{height:36px;padding:0 14px;border-radius:8px;font-size:.82rem}
+
+/* ---------- Tabs row: sits under the hero, which stays on every tab, and sticks to the top while the content scrolls ---------- */
+.tabs{position:sticky;top:0;z-index:50;background:rgba(10,15,13,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.tabs-in{position:relative;max-width:var(--wrap);margin:0 auto;padding:10px var(--gutter);display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs-in::-webkit-scrollbar{display:none}
+.tabs a{flex:none;font:500 .82rem/1 var(--font-mono);color:var(--muted);text-decoration:none;padding:11px 13px;border-radius:8px;transition:color .2s,background .2s}
+.tabs a:hover{color:var(--text);background:var(--surface)}
+.tabs a[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+/* ---------- Hero ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(900px 520px at 88% 8%,rgba(185,255,75,.07),transparent 65%)}
+.hero-motif{position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:-1;pointer-events:none}
+.hero-in{max-width:var(--wrap);margin:0 auto;padding:clamp(24px,3vw,40px) var(--gutter) clamp(18px,2vw,28px);display:grid;grid-template-columns:minmax(0,1fr) clamp(230px,25vw,320px);grid-template-areas:"id photo" "copy photo";column-gap:clamp(32px,6vw,84px);row-gap:22px}
+.hero-id{grid-area:id;align-self:end}
+.hero-copy{grid-area:copy;align-self:start;min-width:0}
+.hero-photo{grid-area:photo;align-self:center;margin:0}
+.eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 12px;font:500 .78rem/1.4 var(--font-mono);letter-spacing:.02em;color:var(--muted)}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.name{margin:0;font:600 clamp(1.2rem,2vw,1.55rem)/1.2 var(--font-display);letter-spacing:-.015em}
+.name .aka{color:var(--dim);font-weight:500}
+.headline{margin:0;font:700 clamp(2.25rem,6.2vw,4.5rem)/.98 var(--font-display);letter-spacing:-.048em;text-wrap:balance}
+.headline em{font-style:normal;color:var(--accent)}
+.sub{margin:20px 0 0;max-width:46ch;font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.5;color:var(--text)}
+.affil{margin:14px 0 0;font:400 .8rem/1.6 var(--font-mono);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0}
+.links{list-style:none;display:flex;flex-wrap:wrap;gap:4px 22px;margin:18px 0 0;padding:10px 0 0;border-top:1px solid var(--line);font:500 .8rem/1 var(--font-mono)}
+.links a{display:inline-flex;gap:6px;padding:7px 0;color:var(--muted);text-decoration:none;transition:color .2s}
+.links a:hover{color:var(--accent)}
+.links a span{color:var(--dim);transition:color .2s}
+.links a:hover span{color:var(--accent)}
+
+.hero-id,.hero-copy{position:relative;z-index:1}
+.photo-wrap{position:relative}
+/* Hero background, made from real structures:
+   a designed protein cage (PDB 4NWO) rendered as a molecular surface (tools/render-protein.html), centred behind
+   the photo, and TB drugs drawn as bond lines (tools/make-hero-art.ps1), drifting behind the text. */
+.cage{position:absolute;left:50%;top:50%;width:250%;aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(to right,transparent 3%,#000 32%);mask-image:linear-gradient(to right,transparent 3%,#000 32%)}
+.cage img{display:block;width:100%;height:100%;max-width:none;opacity:.5}
+.hero-float{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.hero-float img{position:absolute;display:block;height:auto;max-width:none;opacity:.5}
+.fl-1{width:clamp(200px,23vw,310px);left:33%;top:-34px;rotate:-14deg}
+.fl-2{width:clamp(220px,25vw,340px);left:30%;bottom:6%;rotate:9deg}
+.fl-3{width:clamp(84px,9vw,124px);left:-18px;bottom:-60px;rotate:24deg}
+.fl-4{width:clamp(50px,5.4vw,72px);left:19%;top:-14px;rotate:-62deg}
+.photo-wrap::before,.photo-wrap::after{content:"";position:absolute;width:22px;height:22px;border:2px solid var(--accent);pointer-events:none}
+.photo-wrap::before{top:-9px;left:-9px;border-right:0;border-bottom:0;border-top-left-radius:8px}
+.photo-wrap::after{bottom:-9px;right:-9px;border-left:0;border-top:0;border-bottom-right-radius:8px}
+.photo-frame{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:var(--surface);border:1px solid var(--line-strong)}
+.photo-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.photo-fallback{position:absolute;inset:0;display:grid;place-items:center;font:700 clamp(1.6rem,6vw,4.5rem)/1 var(--font-display);letter-spacing:-.04em;color:var(--accent);background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(185,255,75,.06) 14px 15px),var(--surface)}
+.now{margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:rgba(18,26,22,.82);font:400 .76rem/1.55 var(--font-mono);color:var(--muted)}
+.now b{display:block;margin-bottom:2px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.now-mail{display:block;width:fit-content;max-width:100%;color:var(--text);text-decoration:underline;text-decoration-color:var(--accent-line);text-underline-offset:.22em;overflow-wrap:anywhere;transition:color .2s,text-decoration-color .2s}
+.now-mail:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.now-where{display:block;margin-top:2px}
+/* Phones hide the box under the photo, so the email joins the profile links there instead. */
+.links-mail{display:none}
+
+/* ---------- Sections ---------- */
+.section{border-bottom:1px solid var(--line)}
+.section-in{max-width:var(--wrap);margin:0 auto;padding:clamp(60px,9vw,112px) var(--gutter)}
+.sec-head{display:flex;align-items:center;gap:18px;margin:0 0 clamp(28px,4.5vw,52px)}
+.sec-head::before{content:"";flex:none;width:10px;height:10px;border-radius:2px;background:var(--accent)}
+.sec-head h2{margin:0;font:700 clamp(1.9rem,4.4vw,3.1rem)/1.02 var(--font-display);letter-spacing:-.04em}
+.sec-head::after{content:"";flex:1;min-width:16px;height:1px;background:var(--line)}
+.group-label{display:flex;align-items:center;gap:14px;margin:0 0 6px;font:500 .78rem/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.group-label::after{content:"";flex:1;height:1px;background:var(--line)}
+.badge{display:inline-flex;align-items:center;padding:6px 9px;border:1px solid var(--line-strong);border-radius:6px;font:500 .74rem/1 var(--font-mono);color:var(--text);white-space:nowrap}
+.badge--hot{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+/* About */
+.about{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(36px,6vw,88px);align-items:start}
+.bio p{margin:0 0 1.15em;max-width:62ch;font-size:1.05rem;color:var(--muted)}
+.bio p.lead{max-width:none;font:500 clamp(1.25rem,2.2vw,1.6rem)/1.4 var(--font-display);letter-spacing:-.015em;color:var(--text)}
+.bio p:last-child{margin-bottom:0}
+.side-block+.side-block{margin-top:38px}
+.side-block .group-label{margin-bottom:16px}
+.interest{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}
+.interest li{padding:9px 12px;border:1px solid var(--line-strong);border-radius:999px;background:var(--surface);font:500 .78rem/1 var(--font-mono);color:var(--text)}
+.skills{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.skills li{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:.95rem;color:var(--muted)}
+.skills li::before{content:"+";font-family:var(--font-mono);color:var(--accent)}
+.skills-tools{margin:14px 0 0;font:500 .78rem/1.5 var(--font-mono);letter-spacing:.02em;color:var(--dim)}
+
+/* Research cards */
+.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.card{position:relative;grid-column:span 2;display:flex;flex-direction:column;gap:14px;padding:26px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);transition:border-color .2s,transform .2s,background .2s}
+.card:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+.card--lead{grid-column:span 3;padding:clamp(26px,3vw,36px);border-color:var(--line-strong);background:linear-gradient(180deg,rgba(185,255,75,.07),transparent 46%),var(--surface)}
+.card--lead::before{content:"";position:absolute;top:-1px;left:26px;right:26px;height:2px;border-radius:2px;background:var(--accent)}
+.card--lead:hover{border-color:var(--accent-line)}
+.card-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin:0;font:500 .76rem/1 var(--font-mono);color:var(--dim)}
+.card-field{color:var(--accent)}
+.pill-live{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid var(--accent-line);border-radius:999px;color:var(--accent)}
+.pill-live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.card h3{margin:0;font:600 1.2rem/1.22 var(--font-display);letter-spacing:-.02em}
+.card--lead h3{font-size:clamp(1.4rem,2.4vw,1.9rem);line-height:1.12;letter-spacing:-.03em;font-weight:700}
+.card-where{margin:-4px 0 0;font:400 .78rem/1.5 var(--font-mono);color:var(--dim)}
+.card-text{margin:0;font-size:.95rem;line-height:1.6;color:var(--muted)}
+.card--lead .card-text{font-size:1rem}
+.card-foot{display:flex;flex-direction:column;gap:14px;margin-top:auto;padding-top:4px}
+.tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0}
+.tags li{padding:6px 9px;border:1px solid var(--line-strong);border-radius:999px;font:500 .72rem/1 var(--font-mono);color:var(--muted)}
+.card-link{align-self:flex-start;display:inline-flex;gap:8px;padding:4px 0;font:500 .8rem/1.3 var(--font-mono);color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-line);transition:border-color .2s}
+.card-link:hover{border-color:var(--accent)}
+.card-stats{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:14px 16px;margin:2px 0 0;padding:16px 0 2px;border-top:1px solid var(--line)}
+.card-stats li{display:flex;flex-direction:column;gap:6px;min-width:0}
+.card-stats b{font:700 clamp(1.7rem,3vw,2.3rem)/1 var(--font-display);letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.card-stats span{font:400 .74rem/1.45 var(--font-mono);color:var(--muted)}
+.bio .hl{font-style:normal;font-weight:inherit;color:var(--accent)}
+.bio a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:.18em;transition:color .2s}
+.bio a:hover{color:var(--accent)}
+
+/* Research figure: every project is AI, so the figure reads "AI for ..." and branches into the fields the projects apply
+   it to. Hovering or tapping a project opens it beside the figure. */
+.rfig{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:clamp(24px,3.4vw,48px);align-items:start;margin:0 0 30px;padding:clamp(18px,3vw,30px);border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-raised)}
+.rfig-main{min-width:0;container-type:inline-size}
+.aifor{margin:0;font:700 clamp(1.9rem,3.4vw,2.5rem)/1.05 var(--font-display);letter-spacing:-.035em;color:var(--text)}
+.aifor span{font-weight:500;color:var(--dim)}
+.branches{list-style:none;margin:0 0 0 5px;padding:18px 0 0}
+.branch{position:relative;padding:0 0 22px 30px}
+.branch:last-child{padding-bottom:0}
+.branch::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:1px solid var(--accent-line)}
+.branch:first-child::before{top:-18px}
+.branch::after{content:"";position:absolute;left:0;top:0;width:20px;height:12px;border-bottom:1px solid var(--accent-line)}
+.branch:last-child::before{display:none}
+.branch:last-child::after{border-left:1px solid var(--accent-line);border-bottom-left-radius:9px}
+.branch-head{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:30px;margin:0 0 10px}
+.branch-name{margin:0;font:600 1.1rem/1.25 var(--font-display);letter-spacing:-.015em;color:var(--accent)}
+.projs{display:grid;gap:8px}
+.proj{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;padding:9px 14px;border:1px solid var(--line-strong);border-radius:10px;background:transparent;color:var(--text);font:500 .95rem/1.25 var(--font-body);text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .2s,background .2s,color .2s}
+.proj:hover{border-color:var(--accent-line)}
+.proj.is-sel{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+/* A field with more than two entries shows two at a time; the arrows page through the rest. */
+.pager{flex:none;display:flex;align-items:center;gap:6px;font:400 .7rem/1 var(--font-mono);color:var(--dim)}
+.pager-btn{display:grid;place-items:center;width:30px;height:30px;padding:0 0 2px;border:1px solid var(--line-strong);border-radius:50%;background:transparent;color:var(--text);font:500 1.05rem/1 var(--font-body);cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .2s,color .2s}
+.pager-btn:hover{border-color:var(--accent);color:var(--accent)}
+.pager-n{min-width:2.7em;text-align:center}
+.proj--ghost{visibility:hidden;pointer-events:none}
+.proj-name{min-width:0}
+/* A star marks work where Ziming is first or co-first author, or leads the project. */
+.star{margin-right:7px;font-size:.82em;color:var(--accent)}
+/* In the figure the star hangs in the gutter beside the entry, so starred and unstarred names line up. */
+.proj{position:relative}
+.proj .star{position:absolute;left:-20px;top:50%;margin:0;font-size:.72rem;line-height:1;transform:translateY(-50%)}
+/* Each project says what kind of work it is: an AI agent, a model, or both. Green is agent, blue is modeling. */
+.ptype{flex:none;display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid currentColor;border-radius:999px;font:500 .62rem/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
+.ptype::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.ptype--agent{color:var(--accent)}
+.ptype--model{color:var(--accent-cool)}
+.ptype--data{color:var(--muted)}
+/* Work that is both an agent and a model names both, each word in its own colour, with no dot. */
+.ptype--both{gap:2px;color:var(--muted)}
+.ptype--both::before{display:none}
+.ptype--both .pt-a{color:var(--accent)}
+.ptype--both .pt-m{color:var(--accent-cool)}
+.proj.is-sel .ptype--both span{color:inherit}
+.proj.is-sel .ptype{color:var(--accent-ink);border-color:rgba(11,18,8,.4)}
+.proj.is-sel .ptype::before,.proj.is-sel .ptype::after{background:var(--accent-ink)}
+/* Narrow figure column: the label drops under the project name so the name never wraps. */
+@container (max-width:340px){
+  .proj{flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-height:54px;padding:8px 14px}
+}
+.rfig-key{margin:18px 0 0;font:400 .74rem/1.55 var(--font-mono);color:var(--dim)}
+.rfig-side{min-width:0}
+.detail{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-content:start;min-height:300px}
+/* The cards carry column spans for the card grid; inside the panel every card takes the full width. */
+#proj-detail .card{grid-column:1/-1}
+.card-set{display:contents}
+.detail .card,.detail .card:hover{transform:none}
+.detail .card{gap:11px;padding:22px}
+.detail .card h3{font-size:1.22rem;line-height:1.2;letter-spacing:-.02em}
+.detail .card-text{font-size:.93rem;line-height:1.55}
+.detail .card-stats{gap:10px 14px;padding-top:12px}
+.detail .card-stats b{font-size:1.5rem}
+.detail .card-stats span{font-size:.7rem}
+@media (min-width:861px){.rfig-main{position:sticky;top:92px}}
+.detail-hint{margin:0;padding:22px;border:1px dashed var(--line-strong);border-radius:var(--radius);font:400 .8rem/1.6 var(--font-mono);color:var(--dim)}
+.all-toggle{margin:0 0 22px}
+.js-tabs #works{display:none}
+.js-tabs #publications:not(.is-open){display:none}
+#publications{scroll-margin-top:84px}
+.pubs-h{margin:0 0 16px;font:700 1.5rem/1.15 var(--font-display);letter-spacing:-.025em;color:var(--text)}
+.card-role{margin:-4px 0 0;font:500 .74rem/1.4 var(--font-mono);color:var(--dim)}
+.card-role--first{color:var(--accent)}
+.card-links{display:flex;flex-wrap:wrap;gap:8px 20px}
+@media (max-width:860px){.rfig{grid-template-columns:minmax(0,1fr)}}
+.domains{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.domain{display:inline-flex;align-items:center;gap:10px;padding:9px 12px;background:transparent;border:1px solid var(--line-strong);border-radius:999px;color:var(--text);font:500 .78rem/1 var(--font-mono);cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .2s,background .2s,color .2s}
+.domain:hover{border-color:var(--accent-line)}
+.domain[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.domain-n{color:var(--dim)}
+.domain[aria-pressed="true"] .domain-n{color:var(--accent)}
+.domain-hint{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-height:30px;margin:12px 0 0;font:400 .76rem/1.5 var(--font-mono);color:var(--dim)}
+.domain-reset{padding:7px 10px;border:1px solid var(--line-strong);border-radius:6px;background:transparent;color:var(--text);font:500 .74rem/1 var(--font-mono);cursor:pointer;-webkit-appearance:none;appearance:none;transition:border-color .2s,color .2s}
+.domain-reset:hover{border-color:var(--accent);color:var(--accent)}
+@media/* Publications */
+.pub-group+.pub-group{margin-top:clamp(36px,5vw,56px)}
+.pubs{list-style:none;margin:0;padding:0}
+.pub{display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px 24px;padding:22px 0;border-bottom:1px solid var(--line)}
+.pub-year{font:500 .85rem/1.6 var(--font-mono);color:var(--dim)}
+.pub-title{margin:0 0 7px;font:600 1.08rem/1.35 var(--font-display);letter-spacing:-.012em;color:var(--text)}
+.pub-title a{color:inherit;text-decoration:none;background:linear-gradient(var(--accent),var(--accent)) 0 100%/0 1px no-repeat;transition:background-size .25s}
+.pub-title a:hover{background-size:100% 1px}
+.pub-authors{margin:0 0 11px;font-size:.9rem;line-height:1.55;color:var(--muted)}
+.pub-authors strong{font-weight:600;color:var(--text);box-shadow:inset 0 -1px 0 var(--accent)}
+.pub-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0;font:400 .76rem/1.4 var(--font-mono);color:var(--dim)}
+.doi{color:var(--muted);text-decoration:none;overflow-wrap:anywhere;transition:color .2s}
+.doi:hover{color:var(--accent)}
+.pub-role{color:var(--accent)}
+.domain-hint+.pub-group{margin-top:26px}
+.domain .star{margin-right:0}
+.pub--featured{margin:12px calc(var(--gutter) * -.5);padding:22px calc(var(--gutter) * .5);border:1px solid var(--accent-line);border-radius:var(--radius);background:linear-gradient(90deg,var(--accent-soft),transparent 72%)}
+.pub--featured .pub-year{color:var(--accent)}
+.footnote{margin:18px 0 0;font:400 .76rem/1.5 var(--font-mono);color:var(--dim)}
+
+/* Experience and education */
+.xp-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(40px,6vw,80px);align-items:start}
+.xp-grid .group-label{margin-bottom:26px}
+.timeline{--tl-year:78px;position:relative;list-style:none;margin:0;padding:0}
+.timeline::before{content:"";position:absolute;left:calc(var(--tl-year) + 5px);top:10px;bottom:12px;width:1px;background:var(--line-strong)}
+.tl{position:relative;padding:0 0 30px calc(var(--tl-year) + 36px)}
+.tl:last-child{padding-bottom:0}
+.tl::before{content:"";position:absolute;left:var(--tl-year);top:6px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--line-strong)}
+.tl-year{position:absolute;left:0;top:2px;width:calc(var(--tl-year) - 14px);margin:0;text-align:right;white-space:nowrap;font:500 .78rem/1.5 var(--font-mono);font-variant-numeric:tabular-nums;color:var(--muted)}
+.tl--now .tl-year{color:var(--accent)}
+.tl--now::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.tl-date{margin:0 0 4px;font:500 .78rem/1.5 var(--font-mono);color:var(--dim)}
+.tl--now .tl-date{color:var(--accent)}
+.tl-role{margin:0;font:600 1.1rem/1.3 var(--font-display);letter-spacing:-.015em}
+.tl-org{margin:3px 0 6px;font-size:.95rem;color:var(--text)}
+.tl-org a{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:.18em;transition:color .2s}
+.tl-org a:hover{color:var(--accent)}
+.tl-focus{margin:0;font-size:.92rem;color:var(--muted)}
+.edu{list-style:none;display:grid;gap:12px;margin:0;padding:0}
+.edu li{padding:20px 22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.edu-date{margin:0 0 6px;font:500 .76rem/1.4 var(--font-mono);color:var(--dim)}
+.edu-deg{margin:0;font:600 1.05rem/1.3 var(--font-display);letter-spacing:-.015em}
+.edu-school{margin:4px 0 0;font-size:.92rem;color:var(--muted)}
+
+/* Talks */
+.talks{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.talk{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:8px 24px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
+.talk-date{font:500 .85rem/1.6 var(--font-mono);color:var(--dim)}
+.talk-title{margin:0 0 4px;font:600 1.08rem/1.35 var(--font-display);letter-spacing:-.012em}
+.talk-where{margin:0;font-size:.92rem;color:var(--muted)}
+
+/* Footer */
+.site-foot{width:100%;max-width:var(--wrap);margin:0 auto;padding:22px var(--gutter) 28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 24px;font:400 .76rem/1.5 var(--font-mono);color:var(--dim)}
+.site-foot p{margin:0}
+
+/* ---------- Tabs: each nav item shows one page; without JS everything stacks ---------- */
+body{min-height:100vh;display:flex;flex-direction:column}
+main{flex:1 0 auto}
+.js-tabs main{display:flex;flex-direction:column}
+.js-tabs [data-view]:not(.is-active){display:none}
+/* Tall enough that the tab row can always scroll up to the top of the window, even on a short tab. */
+.js-tabs [data-view].is-active{min-height:calc(100vh - 128px)}
+.js-tabs .section{border-bottom:0}
+.js-tabs .section-in{padding-top:clamp(44px,6vw,76px)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:980px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card,.card--lead{grid-column:span 1}
+  .card:last-child{grid-column:span 2}
+}
+@media (max-width:900px){
+  .about,.xp-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (min-width:761px) and (max-width:940px){
+  /* Tablet widths: the text column beside the photo is narrow, so the headline steps down to stay on three lines. */
+  .headline{font-size:5.6vw}
+}
+@media (max-width:760px){
+  .hero-in{grid-template-columns:84px minmax(0,1fr);grid-template-areas:"photo id" "copy copy";column-gap:16px;row-gap:28px;align-items:center}
+  .hero-id{align-self:center}
+  .eyebrow{margin-bottom:6px;font-size:.72rem}
+  .photo-frame{aspect-ratio:1/1;border-radius:14px}
+  .photo-wrap::before,.photo-wrap::after,.now{display:none}
+  .links-mail{display:list-item}
+  .hero .links{gap:4px 14px;font-size:.76rem}
+  .cage{width:560%;-webkit-mask-image:none;mask-image:none}
+  .cage img{opacity:.34}
+  .hero-float img{opacity:.36}
+  .fl-1{width:190px;left:auto;right:-46px;top:auto;bottom:30%}
+  .fl-2{width:210px;left:8%;bottom:-26px}
+  .hero-float .fl-3,.hero-float .fl-4{display:none}
+  .pub{grid-template-columns:minmax(0,1fr)}
+  .talk{grid-template-columns:minmax(0,1fr)}
+  .talk-kind{justify-self:start}
+  .timeline{--tl-year:70px}
+  .tl-year{font-size:.7rem;top:3px}
+}
+@media (max-width:640px){
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .card,.card--lead,.card:last-child{grid-column:auto}
+  .cta .btn{flex:1 1 auto}
+}
+
+/* ---------- Motion ---------- */
+@keyframes rise{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+@keyframes turn{to{transform:rotate(360deg)}}
+@keyframes drift-a{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(16px,-20px,0) rotate(5deg)}}
+@keyframes drift-b{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-18px,14px,0) rotate(-6deg)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--accent-soft)}50%{box-shadow:0 0 0 8px rgba(185,255,75,.04)}}
+@media (prefers-reduced-motion:no-preference){
+  html{scroll-behavior:smooth}
+  .hero-id,.hero-copy>*,.hero-photo{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  .hero-copy>:nth-child(1){animation-delay:.06s}
+  .hero-copy>:nth-child(2){animation-delay:.12s}
+  .hero-copy>:nth-child(3){animation-delay:.16s}
+  .hero-copy>:nth-child(4){animation-delay:.2s}
+  .hero-copy>:nth-child(5){animation-delay:.24s}
+  .hero-photo{animation-delay:.18s}
+  .dot{animation:pulse 2.8s ease-in-out infinite}
+  .cage img{animation:turn 260s linear infinite}
+  .fl-1{animation:drift-a 19s ease-in-out infinite}
+  .fl-2{animation:drift-b 23s ease-in-out infinite}
+  .fl-3{animation:drift-a 27s ease-in-out -9s infinite}
+  .fl-4{animation:drift-b 17s ease-in-out -5s infinite}
+  /* Research branches rise in one after another each time the tab opens. */
+  .branch{animation:rise .6s cubic-bezier(.2,.7,.2,1) calc(var(--i)*90ms + 60ms) both}
+  @supports (animation-timeline:view()){
+    .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js-tabs')</script>
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top" aria-label="Introduction">
+    <svg class="hero-motif" aria-hidden="true" focusable="false" viewBox="0 0 1440 760" preserveAspectRatio="xMaxYMid slice">
+      <defs>
+        <pattern id="hex" width="55.43" height="96" patternUnits="userSpaceOnUse">
+          <path d="M27.71 0 55.43 16V48L27.71 64 0 48V16ZM27.71 64V96" fill="none" stroke="#b9ff4b" stroke-width="1"/>
+        </pattern>
+        <radialGradient id="hexfade" cx="78%" cy="38%" r="62%">
+          <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+          <stop offset=".55" stop-color="#fff" stop-opacity=".16"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+        <mask id="hexmask"><rect width="1440" height="760" fill="url(#hexfade)"/></mask>
+      </defs>
+      <rect width="1440" height="760" fill="url(#hex)" mask="url(#hexmask)" opacity=".5"/>
+    </svg>
+
+    <div class="hero-float" aria-hidden="true">
+      <img class="fl-1" src="images/mol-bedaquiline.svg" alt="" width="434" height="343">
+      <img class="fl-2" src="images/mol-pretomanid.svg" alt="" width="546" height="202">
+      <img class="fl-3" src="images/mol-linezolid.svg" alt="" width="209" height="515">
+      <img class="fl-4" src="images/mol-isoniazid.svg" alt="" width="108" height="230">
+    </div>
+
+    <div class="hero-in">
+      <div class="hero-id">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>PhD Candidate · Computational Biomedicine</p>
+        <h1 class="name">Ziming Wei <span class="aka">(Alex)</span></h1>
+      </div>
+
+      <div class="hero-copy">
+        <p class="headline">Building AI agents and models that design <em>therapeutics.</em></p>
+        <p class="sub">From small molecules to protein complexes.</p>
+        <p class="affil">NYU Grossman School of Medicine · Institute for Systems Genetics, NYU Langone Health · New York, NY</p>
+        <div class="cta">
+          <a class="btn btn--primary" href="#publications">Publications</a>
+          <a class="btn" href="https://github.com/AlexWei21" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        </div>
+        <ul class="links" aria-label="Profiles and contact">          <li><a href="https://scholar.google.com/citations?user=mlPsLsMAAAAJ&amp;hl=en" rel="noopener">Google Scholar <span aria-hidden="true">↗</span></a></li>          <li><a href="https://www.linkedin.com/in/ziming-wei/" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
+          <li><a href="https://orcid.org/0009-0000-0918-4692" rel="noopener">ORCID <span aria-hidden="true">↗</span></a></li>
+          <li class="links-mail"><a href="mailto:weiziming5115@gmail.com">Email</a></li>        </ul>
+      </div>
+
+      <figure class="hero-photo">
+        <div class="photo-wrap">
+          <div class="cage" aria-hidden="true"><img src="images/protein-4nwo.webp" alt="" width="1100" height="1100"></div>
+          <div class="photo-frame">
+            <img src="images/profile.jpg" alt="Portrait of Ziming Wei" width="320" height="400" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+            <span class="photo-fallback" role="img" aria-label="Ziming Wei" hidden>ZW</span>
+          </div>
+        </div>
+        <figcaption class="now"><b>Contact</b><a class="now-mail" href="mailto:weiziming5115@gmail.com">weiziming5115@gmail.com</a><span class="now-where">New York, NY</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== Tabs: the hero above stays put; everything below switches with these ===== -->
+  <div id="tabs-anchor"></div>
+  <nav class="tabs" id="site-nav" aria-label="Pages">
+    <div class="tabs-in">
+      <a href="#about" data-tab="about" aria-current="page">About</a>
+      <a href="#research" data-tab="research">Research</a>
+      <a href="#experience" data-tab="experience">Experience</a>
+      <a href="#talks" data-tab="talks">Talks</a>
+    </div>
+  </nav>
+
+  <!-- ===== About ===== -->  <section class="section is-active" id="about" data-view="about" aria-labelledby="about-h">
+    <div class="section-in">
+      <header class="sec-head reveal"><h2 id="about-h">About</h2></header>
+      <div class="about">
+        <div class="bio reveal">
+          <p class="lead">I'm a PhD candidate in the <a href="https://shunzhiwang.org/" rel="noopener">Wang Lab</a> at the Institute for Systems Genetics at NYU Langone Health. I build AI agents and models for small-molecule and protein design.</p>
+          <p>Before NYU Langone, I spent three years as a research associate in the Farhat Lab (Maha Farhat) at Harvard Medical School, where I built an AI agent for antibiotic discovery against <em>Mycobacterium tuberculosis</em>, one of the deadliest infectious diseases in the world. It designed <em class="hl">five <i>de-novo</i> molecules</em> that inhibited the bacterium in vitro, giving a drug pipeline that has produced few new antibiotics in decades a fresh set of candidates. Alongside that, I worked on clinical machine learning for hospital-onset infection and antimicrobial resistance at Harvard Pilgrim Health Care and Brigham and Women's Hospital, and on early-stage pandemic forecasting at Harvard Business School.</p>
+          <p>I hold an MS in Computational Biology and Quantitative Genetics from the Harvard T.H. Chan School of Public Health and a BS in Biology and Computer Science from Wake Forest University.</p>
+        </div>
+        <aside class="reveal" aria-label="Research interests and skills">
+          <div class="side-block">
+            <h3 class="group-label">Research interests</h3>
+            <ul class="interest">
+              <li>AI for Science</li>
+              <li>Agentic AI</li>
+              <li>Generative Modeling</li>
+              <li>AI for Drug Development</li>
+              <li>Protein Design &amp; Interactions</li>            </ul>
+          </div>
+          <div class="side-block">
+            <h3 class="group-label">Skills</h3>
+            <ul class="skills">
+              <li>LLM agent systems for scientific discovery</li>
+              <li>Generative models for molecules and proteins</li>
+              <li>Computational protein design and structure prediction</li>
+              <li>Active learning for drug candidate prioritization</li>
+              <li>Causal inference and clinical ML</li>
+            </ul>
+            <p class="skills-tools">Python · C++ · R · SQL</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Research ===== -->
+  <section class="section" id="research" data-view="research" aria-labelledby="research-h">
+    <div class="section-in">
+      <header class="sec-head reveal"><h2 id="research-h">Research</h2></header>
+      <figure class="rfig">
+        <div class="rfig-main">
+          <p class="aifor" aria-hidden="true"><span>I build</span> AI <span>for</span></p>
+          <ul class="branches" aria-label="Work, grouped by the field it applies AI to">
+            <li class="branch" style="--i:0">
+              <div class="branch-head"><h3 class="branch-name" aria-label="AI for Drug Discovery">Drug Discovery</h3></div>
+              <div class="projs">
+                <button class="proj" type="button" data-proj="p-02" aria-pressed="false" aria-label="Tuberculosis antibiotics: first author; an agent and modeling"><span class="proj-name"><span class="star" aria-hidden="true">★</span>Tuberculosis antibiotics</span><span class="ptype ptype--both"><span class="pt-a">Agent</span>+<span class="pt-m">Model</span></span></button>
+                <button class="proj" type="button" data-proj="p-03" aria-pressed="false" aria-label="Lyme antibiotics: co-author; modeling"><span class="proj-name">Lyme antibiotics</span><span class="ptype ptype--model">Model</span></button>
+              </div>
+            </li>
+            <li class="branch" style="--i:1">
+              <div class="branch-head"><h3 class="branch-name" aria-label="AI for Clinical">Clinical</h3></div>
+              <div class="projs">
+                <button class="proj" type="button" data-proj="p-04" aria-pressed="false" aria-label="Hospital-onset infection: co-first author; modeling"><span class="proj-name"><span class="star" aria-hidden="true">★</span>Hospital-onset infection</span><span class="ptype ptype--model">Model</span></button>
+                <button class="proj" type="button" data-proj="p-05" aria-pressed="false" aria-label="Early pandemic forecasting: first author; modeling"><span class="proj-name"><span class="star" aria-hidden="true">★</span>Early pandemic forecasting</span><span class="ptype ptype--model">Model</span></button>
+                <button class="proj" type="button" data-proj="p-07" aria-pressed="false" aria-label="Resistance datasets: two datasets, first author of one and co-author of the other"><span class="proj-name"><span class="star" aria-hidden="true">★</span>Resistance datasets</span><span class="ptype ptype--data">Data</span></button>
+                <button class="proj" type="button" data-proj="p-06" aria-pressed="false" aria-label="Resistance prediction: co-author; modeling"><span class="proj-name">Resistance prediction</span><span class="ptype ptype--model">Model</span></button>
+                <button class="proj" type="button" data-proj="p-08" aria-pressed="false" aria-label="Alzheimer's biomarkers: co-author; modeling"><span class="proj-name">Alzheimer's biomarkers</span><span class="ptype ptype--model">Model</span></button>
+              </div>
+            </li>
+          </ul>
+          <p class="rfig-key"><span class="star" aria-hidden="true">★</span>First or co-first author. Hover over an entry, or tap it, to open it.</p>
+        </div>
+        <div class="rfig-side">
+          <div class="detail" id="proj-detail" aria-live="polite"><p class="detail-hint">Hover over an entry in the list, or tap it, to open it.</p></div>
+        </div>
+      </figure>
+
+      <!-- One card per piece of work. The panel beside the figure copies its content from here, so with scripts on this
+           block is hidden; without scripts it shows as a plain list of cards. -->
+      <div id="works">
+      <div class="cards">
+
+        <article class="card" id="p-02">
+          <p class="card-meta"><span class="card-field">AI for Drug Discovery</span><span>bioRxiv · 2025</span></p>
+          <h3>Fleming: an AI agent for antibiotic discovery in <em>Mycobacterium tuberculosis</em></h3>
+          <p class="card-role card-role--first">★ First author</p>
+          <p class="card-where">Harvard Medical School · 2022–2025</p>
+          <p class="card-text">An AI agent that combines inhibition prediction, pharmacokinetic property prediction, diffusion- and structure-based molecule generation, and molecular optimization to identify molecules with high antibiotic potential against <em>M. tuberculosis</em>.</p>
+          <ul class="card-stats" aria-label="Results reported in the preprint">
+            <li><b>83%</b><span>in vitro hit rate for predicted inhibitors</span></li>
+            <li><b>100%</b><span>hit rate for de novo designed molecules</span></li>
+            <li><b>83%</b><span>of de novo designs with favorable ADMET profiles</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Agentic AI</li><li>Drug discovery</li><li>Generative models</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.1101/2025.04.01.646719" rel="noopener">Paper <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <article class="card" id="p-03">
+          <p class="card-meta"><span class="card-field">AI for Drug Discovery</span><span>bioRxiv · 2026</span></p>
+          <h3>Active learning for narrow-spectrum Lyme disease antibiotics</h3>
+          <p class="card-role">Co-author</p>
+          <p class="card-where">Harvard Medical School, with the Hu Lab at Tufts · 2022–2025</p>
+          <p class="card-text">An active learning pipeline for high-throughput screening of chemical libraries against <em>Borrelia burgdorferi</em>, raising hit rates and speeding up discovery. Selective inhibitory molecules from the pipeline were tested in collaboration with the Hu Lab at Tufts.</p>
+          <ul class="card-stats" aria-label="Results reported in the preprint">
+            <li><b>5×</b><span>higher hit rate than investigator-selected screening plates</span></li>
+            <li><b>53×</b><span>hit-rate enrichment in the prospective virtual screen</span></li>
+            <li><b>11%</b><span>of predicted compounds confirmed to inhibit <em>B. burgdorferi</em></span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Active learning</li><li>Drug discovery</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.64898/2026.07.04.736489" rel="noopener">Paper <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <article class="card" id="p-04">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>Nature Communications · 2026</span></p>
+          <h3>Hospital-onset infection and antimicrobial resistance</h3>
+          <p class="card-role card-role--first">★ Co-first author</p>
+          <p class="card-where">Harvard Pilgrim Health Care · Brigham and Women's Hospital · 2022–2025</p>
+          <p class="card-text">A matched case-control analysis of Mass General Brigham electronic health records: how colonization pressure from ward co-occupants relates to hospital acquisition of 11 drug-susceptible and drug-resistant organisms, with cases and controls matched on prior antibiotic exposure across 14 antibiotic classes.</p>
+          <ul class="card-stats" aria-label="Results reported in the paper">
+            <li><b>43,403</b><span>patients from Mass General Brigham records, 2015–2024</span></li>
+            <li><b>1.33×</b><span>odds of acquiring <em>C. difficile</em> per unit colonization pressure</span></li>
+            <li><b>~4×</b><span>more hospital acquisitions of drug-susceptible than resistant organisms</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Clinical ML</li><li>Causal inference</li><li>EHR</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.1038/s41467-026-69873-4" rel="noopener">Paper <span aria-hidden="true">↗</span></a><a class="card-link" href="https://doi.org/10.13026/pa4z-5293" rel="noopener">Dataset <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <article class="card" id="p-05">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>medRxiv · 2024</span></p>
+          <h3>HG-DCM: early-stage pandemic forecasting</h3>
+          <p class="card-role card-role--first">★ First author</p>
+          <p class="card-where">Harvard Business School · 2023–2024</p>
+          <p class="card-text">A history-guided deep compartmental model that combines deep learning with classical compartmental models, plus a meta-dataset of past outbreaks (COVID-19, Ebola, SARS, dengue, mpox and seasonal influenza).</p>
+          <ul class="card-stats" aria-label="Results reported in the preprint">
+            <li><b>58.7%</b><span>lower median COVID-19 forecast error than DELPHI (2-week data)</span></li>
+            <li><b>227</b><span>locations worldwide in the early COVID-19 forecasting test</span></li>
+            <li><b>2 wks</b><span>of data to forecast an outbreak's first 12 weeks</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Forecasting</li><li>Deep learning</li><li>Epidemiology</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.1101/2024.11.18.24317469" rel="noopener">Paper <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <!-- One entry in the figure, two cards in the panel: the two sibling datasets. -->
+        <div class="card-set" id="p-07">
+        <article class="card" id="p-07a">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>PhysioNet · 2025</span></p>
+          <h3>ARMD-MGB: antibiotic resistance data from Mass General Brigham</h3>
+          <p class="card-role card-role--first">★ First author</p>
+          <p class="card-where">Harvard Pilgrim Health Care Institute · Mass General Brigham</p>
+          <p class="card-text">A de-identified EHR dataset of adult microbiology cultures and antibiotic susceptibilities from 12 Mass General Brigham hospitals, 2015–2024, designed as a companion to Stanford's ARMD with a harmonized schema.</p>
+          <ul class="card-stats" aria-label="Figures reported on the dataset page">
+            <li><b>200,543</b><span>adult patients at Mass General Brigham, 2015–2024</span></li>
+            <li><b>353,603</b><span>ARMD-MGB culture orders (urine, blood, respiratory)</span></li>
+            <li><b>12</b><span>hospitals in the Mass General Brigham system</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Dataset</li><li>Antimicrobial resistance</li><li>EHR</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.13026/53vq-f537" rel="noopener">Dataset on PhysioNet <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+        <article class="card" id="p-07b">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>Scientific Data · 2025</span></p>
+          <h3>ARMD: an antibiotic resistance dataset from Stanford Health Care</h3>
+          <p class="card-role">Co-author</p>
+          <p class="card-where">Harvard Pilgrim Health Care Institute · collaboration with Stanford Health Care</p>
+          <p class="card-text">A de-identified dataset of adult urine, blood and respiratory cultures from Stanford Health Care electronic health records, 1999–2024. It links each culture's organism and antibiotic susceptibility results to the patient's demographics, comorbidities, prior antibiotic exposures, lab results and vital signs, and is openly available on Dryad.</p>
+          <ul class="card-stats" aria-label="Figures reported in the paper">
+            <li><b>283,715</b><span>adult patients from Stanford Health Care records, 1999–2024</span></li>
+            <li><b>751,075</b><span>microbiological culture records: urine, blood and respiratory</span></li>
+            <li><b>55</b><span>antibiotics with susceptibility results</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Dataset</li><li>Antimicrobial resistance</li><li>EHR</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.1038/s41597-025-05649-7" rel="noopener">Paper <span aria-hidden="true">↗</span></a><a class="card-link" href="https://doi.org/10.5061/dryad.jq2bvq8kp" rel="noopener">Dataset on Dryad <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+        </div>
+
+        <article class="card" id="p-06">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>arXiv · 2026</span></p>
+          <h3>ARMD-Predict: predicting antibiotic resistance before culture results</h3>
+          <p class="card-role">Co-author</p>
+          <p class="card-where">Harvard Pilgrim Health Care Institute · four-center collaboration</p>
+          <p class="card-text">Machine learning models that use electronic health record data to estimate, before culture results return, whether an antibiotic will be active against a patient's infecting bacteria, and to predict the organism and its resistance pattern, using microbiology data pooled from four U.S. academic medical centers.</p>
+          <ul class="card-stats" aria-label="Figures reported in the preprint">
+            <li><b>7.5M</b><span>culture–antibiotic observations from four U.S. academic medical centers</span></li>
+            <li><b>0.77</b><span>median AUROC predicting susceptibility, inpatient urine cultures</span></li>
+            <li><b>2.2M</b><span>culture–antibiotic observations from Mass General Brigham</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Clinical ML</li><li>Antimicrobial resistance</li><li>EHR</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.48550/arXiv.2610.32998" rel="noopener">Paper <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+        <article class="card" id="p-08">
+          <p class="card-meta"><span class="card-field">AI for Clinical</span><span>IEEE ISBI · 2021</span></p>
+          <h3>Interaction and spread of ATN biomarkers in Alzheimer's disease</h3>
+          <p class="card-role">Co-author</p>
+          <p class="card-where">Wake Forest University · 2021</p>
+          <p class="card-text">Statistical models of how amyloid plaques, tau tangles and loss of neurons (the A, T and N biomarkers of Alzheimer's disease) appear over time, interact and spread across 148 brain regions, using longitudinal PET and diffusion-weighted brain scans from the ADNI database.</p>
+          <ul class="card-stats" aria-label="Figures reported in the paper">
+            <li><b>2,753</b><span>amyloid PET scans from 1,204 subjects in ADNI</span></li>
+            <li><b>148</b><span>cortical brain regions analyzed, from the Destrieux atlas</span></li>
+            <li><b>32 mo</b><span>modeled average lag from amyloid to tau abnormality</span></li>
+          </ul>
+          <div class="card-foot">
+            <ul class="tags" aria-label="Topics"><li>Neuroimaging</li><li>Alzheimer's disease</li></ul>
+            <div class="card-links"><a class="card-link" href="https://doi.org/10.1109/ISBI48211.2021.9434021" rel="noopener">Paper <span aria-hidden="true">↗</span></a></div>
+          </div>
+        </article>
+
+      </div>
+      </div>
+
+      <p class="all-toggle"><button class="btn btn--sm" type="button" id="toggle-all" aria-expanded="false" aria-controls="publications">Show all publications as a list</button></p>
+
+      <div id="publications">
+      <h3 class="pubs-h">Publications</h3>
+      <div class="domains" role="group" aria-label="Filter publications">
+        <button class="domain" type="button" id="domain-first" data-filter="first" aria-pressed="false"><span class="star" aria-hidden="true">★</span>First author <span class="domain-n">5</span></button>
+        <button class="domain" type="button" id="domain-drug" data-filter="drug" aria-pressed="false">Drug Discovery <span class="domain-n">2</span></button>
+        <button class="domain" type="button" id="domain-clinical" data-filter="clinical" aria-pressed="false">Clinical <span class="domain-n">7</span></button>
+      </div>
+      <p class="domain-hint"><span>Filter the list by field, or to first-author work.</span><button class="domain-reset" type="button" id="domain-reset" hidden>Show all publications</button></p>
+
+      <div class="pub-group">
+        <h4 class="group-label">Selected</h4>
+        <ol class="pubs">
+          <li class="pub pub--featured" data-domains="drug first">
+            <span class="pub-year">2025</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.1101/2025.04.01.646719" rel="noopener">Fleming: An AI agent for antibiotic discovery for <em>Mycobacterium tuberculosis</em></a></p>
+              <p class="pub-authors"><strong>Wei, Z.</strong>, Ektefaie, Y., Zhou, A., Negatu, D., Aldridge, B., Dick, T., Skarlinski, M., White, A., Rodriques, S., Hosseiniporgham, S., Krieger, I., Sacchettini, J., Zitnik, M., &amp; Farhat, M.</p>
+              <p class="pub-meta"><span class="badge">bioRxiv</span><span>In submission</span><span class="pub-role">★ First author</span><a class="doi" href="https://doi.org/10.1101/2025.04.01.646719" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub pub--featured" data-domains="clinical first">
+            <span class="pub-year">2026</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.1038/s41467-026-69873-4" rel="noopener">Using electronic health records to assess the relationship between colonization pressure and nosocomial pathogen acquisition</a></p>
+              <p class="pub-authors">Sagers, L.*, <strong>Wei, Z.*</strong>, McKenna, C., Chan, C., Agan, A. A., Pak, T. R., Rhee, C., Klompas, M., &amp; Kanjilal, S.</p>
+              <p class="pub-meta"><span class="badge badge--hot">Nature Communications</span><span>17(1)</span><span class="pub-role">★ Co-first author</span><a class="doi" href="https://doi.org/10.1038/s41467-026-69873-4" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="pub-group">
+        <h4 class="group-label">Other</h4>
+        <ol class="pubs">
+          <li class="pub" data-domains="drug">
+            <span class="pub-year">2026</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.64898/2026.07.04.736489" rel="noopener">Improving Generalizability in Whole-Cell Antibiotic Discovery Through Active Learning</a></p>
+              <p class="pub-authors">Serrano, L. R., Zhou, A., <strong>Wei, Z.</strong>, Stocks, K.-L. K., Ektefaie, Y., Gwynne, P. J., Chen, E., Krieger, I., Sacchettini, J., Aldridge, B., Hu, L. T., &amp; Farhat, M.</p>
+              <p class="pub-meta"><span class="badge">bioRxiv</span><a class="doi" href="https://doi.org/10.64898/2026.07.04.736489" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub" data-domains="clinical">
+            <span class="pub-year">2026</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.48550/arXiv.2610.32998" rel="noopener">ARMD-Predict: Multi-site machine learning to predict antibiotic resistance before culture results</a></p>
+              <p class="pub-authors">Haredasht, F. N., Marshall, N. P., Chen, W., Cooper, L. N., <strong>Wei, Z.</strong>, Konsker, H., Chen, J. S., Klompas, M., McKenna, C., Medford, R. J., Kanjilal, S., Schoeffler, A. J., Ma, S. P., Banaei, N., Asch, S. M., Chang, A., Deresinski, S. C., Goldstein, M. K., Tibshirani, R., &amp; Chen, J. H.</p>
+              <p class="pub-meta"><span class="badge">arXiv:2610.32998</span><a class="doi" href="https://doi.org/10.48550/arXiv.2610.32998" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub" data-domains="clinical">
+            <span class="pub-year">2025</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.1038/s41597-025-05649-7" rel="noopener">Antibiotic Resistance Microbiology Dataset (ARMD): A resource for antimicrobial resistance from EHRs</a></p>
+              <p class="pub-authors">Nateghi Haredasht, F., Amrollahi, F., Maddali, M. V., Marshall, N., Ma, S. P., Cooper, L. N., Johnson, A. O., <strong>Wei, Z.</strong>, Medford, R. J., Kanjilal, S., Banaei, N., Deresinski, S., Goldstein, M. K., Asch, S. M., Chang, A., &amp; Chen, J. H.</p>
+              <p class="pub-meta"><span class="badge">Scientific Data</span><span>12(1)</span><a class="doi" href="https://doi.org/10.1038/s41597-025-05649-7" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub" data-domains="clinical first">
+            <span class="pub-year">2024</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.1101/2024.11.18.24317469" rel="noopener">HG-DCM: History Guided Deep Compartmental Model for Early Stage Pandemic Forecasting</a></p>
+              <p class="pub-authors"><strong>Wei, Z.</strong>, &amp; Li, M. L.</p>
+              <p class="pub-meta"><span class="badge">medRxiv</span><span>In submission</span><span class="pub-role">★ First author</span><a class="doi" href="https://doi.org/10.1101/2024.11.18.24317469" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub" data-domains="clinical">
+            <span class="pub-year">2021</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.1109/ISBI48211.2021.9434021" rel="noopener">Analyzing the spatiotemporal interaction and propagation of ATN biomarkers in Alzheimer's disease using longitudinal neuroimaging data</a></p>
+              <p class="pub-authors">Liu, Q., Yang, D., Zhang, J., <strong>Wei, Z.</strong>, Wu, G., &amp; Chen, M.</p>
+              <p class="pub-meta"><span class="badge">IEEE ISBI 2021</span><span>2021 IEEE 18th International Symposium on Biomedical Imaging (ISBI), 126–129</span><a class="doi" href="https://doi.org/10.1109/ISBI48211.2021.9434021" rel="noopener">Paper <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="pub-group">
+        <h4 class="group-label">Datasets</h4>
+        <ul class="pubs">
+          <li class="pub" data-domains="clinical first">
+            <span class="pub-year">2025</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.13026/53vq-f537" rel="noopener">Antibiotic Resistance Microbiology Dataset Mass General Brigham (ARMD-MGB)</a></p>
+              <p class="pub-authors"><strong>Wei, Z.</strong>, &amp; Kanjilal, S.</p>
+              <p class="pub-meta"><span class="badge">PhysioNet</span><span class="pub-role">★ First author</span><a class="doi" href="https://doi.org/10.13026/53vq-f537" rel="noopener">Dataset <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+          <li class="pub" data-domains="clinical first">
+            <span class="pub-year">2025</span>
+            <div>
+              <p class="pub-title"><a href="https://doi.org/10.13026/pa4z-5293" rel="noopener">Predictors of Hospital Onset Infection: A Matched Retrospective Cohort Dataset</a></p>
+              <p class="pub-authors"><strong>Wei, Z.</strong>, Sagers, L., McKenna, C., Pak, T., Rhee, C., Klompas, M., &amp; Kanjilal, S.</p>
+              <p class="pub-meta"><span class="badge">PhysioNet</span><span class="pub-role">★ First author</span><a class="doi" href="https://doi.org/10.13026/pa4z-5293" rel="noopener">Dataset <span aria-hidden="true">↗</span></a></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <p class="footnote">* Equal contribution.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience and Education ===== -->
+  <section class="section" id="experience" data-view="experience" aria-labelledby="xp-h">
+    <div class="section-in">
+      <header class="sec-head reveal"><h2 id="xp-h">Experience &amp; Education</h2></header>
+      <div class="xp-grid">
+        <div>
+          <h3 class="group-label">Experience</h3>
+          <ol class="timeline">
+            <li class="tl tl--now reveal">
+              <p class="tl-year" aria-hidden="true">2025–now</p><p class="tl-date">Nov 2025 – Present</p>
+              <p class="tl-role">Graduate Student Researcher</p>
+              <p class="tl-org">NYU Langone Health, Institute for Systems Genetics (<a href="https://shunzhiwang.org/" rel="noopener">Wang Lab</a>) · New York, NY</p>
+              <p class="tl-focus">AI agents for protein design</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2022–25</p><p class="tl-date">Jul 2022 – Jul 2025</p>
+              <p class="tl-role">Research Associate</p>
+              <p class="tl-org">Harvard Medical School (<a href="https://scholar.harvard.edu/mahafarhat/home" rel="noopener">Farhat Lab</a>) · Boston, MA</p>
+              <p class="tl-focus">Fleming; active learning for Lyme antibiotics</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2024–25</p><p class="tl-date">Jul 2024 – Jul 2025</p>
+              <p class="tl-role">Research Associate</p>
+              <p class="tl-org">Harvard Pilgrim Health Care (Kanjilal Lab) · Boston, MA</p>
+              <p class="tl-focus">Hospital-onset infection prediction</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2023–24</p><p class="tl-date">Jul 2023 – Jun 2024</p>
+              <p class="tl-role">Research Associate</p>
+              <p class="tl-org">Harvard Business School (<a href="https://www.michaellz.com/" rel="noopener">Li Lab</a>) · Boston, MA</p>
+              <p class="tl-focus">HG-DCM pandemic forecasting</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2022–23</p><p class="tl-date">Feb 2022 – Jan 2023</p>
+              <p class="tl-role">Research Trainee</p>
+              <p class="tl-org">Brigham and Women's Hospital · Boston, MA</p>
+              <p class="tl-focus">Treatment effect of antibiotic exposure on antimicrobial resistance (TMLE, Double ML)</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2022</p><p class="tl-date">May 2022 – Aug 2022</p>
+              <p class="tl-role">Clinical Machine Learning Intern</p>
+              <p class="tl-org">Philips Healthcare North America · Cambridge, MA</p>
+              <p class="tl-focus">Joint evaluation pipeline for pairwise clinical decision support algorithm comparison</p>
+            </li>
+            <li class="tl reveal">
+              <p class="tl-year" aria-hidden="true">2019–20</p><p class="tl-date">Sep 2019 – Dec 2020</p>
+              <p class="tl-role">Research Assistant</p>
+              <p class="tl-org">Wake Forest University (<a href="https://chenm.sites.wfu.edu/" rel="noopener">Chen Lab</a>) · Winston-Salem, NC</p>
+              <p class="tl-focus">Preterm birth prediction from gene expression; ATN biomarkers in Alzheimer's disease</p>
+            </li>
+          </ol>
+        </div>
+        <div>
+          <h3 class="group-label">Education</h3>
+          <ul class="edu">
+            <li class="reveal">
+              <p class="edu-date">Expected May 2030</p>
+              <p class="edu-deg">PhD candidate, Computational Biomedicine</p>
+              <p class="edu-school">NYU Grossman School of Medicine · New York, NY</p>
+            </li>
+            <li class="reveal">
+              <p class="edu-date">May 2023</p>
+              <p class="edu-deg">MS, Computational Biology and Quantitative Genetics</p>
+              <p class="edu-school">Harvard T.H. Chan School of Public Health · Boston, MA</p>
+            </li>
+            <li class="reveal">
+              <p class="edu-date">May 2021</p>
+              <p class="edu-deg">BS, Biology and Computer Science (double major)</p>
+              <p class="edu-school">Wake Forest University · Winston-Salem, NC</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Talks ===== -->
+  <section class="section" id="talks" data-view="talks" aria-labelledby="talks-h">
+    <div class="section-in">
+      <header class="sec-head reveal"><h2 id="talks-h">Talks &amp; posters</h2></header>
+      <ul class="talks">
+        <li class="talk reveal">
+          <span class="talk-date">May 2025</span>
+          <div>
+            <p class="talk-title">Fleming: An AI agent for antibiotic discovery for <em>Mycobacterium tuberculosis</em>.</p>
+            <p class="talk-where">TB Drug Accelerator (TBDA), Boston, MA</p>
+          </div>
+          <span class="badge badge--hot talk-kind">Oral presentation</span>
+        </li>
+        <li class="talk reveal">
+          <span class="talk-date">December 2023</span>
+          <div>
+            <p class="talk-title">Deep learning for antibiotic discovery in <em>Mycobacterium tuberculosis</em>.</p>
+            <p class="talk-where">Boston Area Antimicrobial Resistance Network Meeting, Boston, MA</p>
+          </div>
+          <span class="badge talk-kind">Poster</span>
+        </li>
+        <li class="talk reveal">
+          <span class="talk-date">May 2023</span>
+          <div>
+            <p class="talk-title">Deep learning for antibiotic discovery in <em>Mycobacterium tuberculosis</em>.</p>
+            <p class="talk-where">Boston Bacterial Meeting, Boston, MA</p>
+          </div>
+          <span class="badge talk-kind">Poster</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <p>© 2026 Ziming Wei</p>
+  <p>New York, NY</p>
+</footer>
+
+<script>
+/* Research figure. Each field lists its work two entries at a time, and the arrows page through the rest. Hovering,
+   focusing or tapping an entry opens it in the panel beside the figure. The panel's content is copied from the entry's
+   card in #works, so each piece of work is written once. */
+(function(){
+  var detail=document.getElementById('proj-detail');
+  if(!detail)return;
+  var PER=2,reveal={},current=null,pickers=[];
+  [].forEach.call(document.querySelectorAll('.branch'),function(br){
+    var items=[].slice.call(br.querySelectorAll('.proj'));
+    if(items.length<=PER)return;
+    var pages=Math.ceil(items.length/PER),page=0,box=br.querySelector('.projs'),head=br.querySelector('.branch-head'),name=br.querySelector('.branch-name').textContent;
+    /* An invisible copy of one entry keeps the height steady when the last page holds a single entry. */
+    var ghost=items[0].cloneNode(true);
+    ghost.className='proj proj--ghost';
+    ['data-proj','aria-label','aria-pressed'].forEach(function(a){ghost.removeAttribute(a)});
+    ghost.setAttribute('aria-hidden','true');ghost.disabled=true;ghost.tabIndex=-1;
+    box.appendChild(ghost);
+    var count=document.createElement('span');count.className='pager-n';count.setAttribute('aria-live','polite');
+    function arrow(label,glyph,step){
+      var b=document.createElement('button');b.type='button';b.className='pager-btn';b.setAttribute('aria-label',label);b.textContent=glyph;
+      b.addEventListener('click',function(){show(page+step,true)});
+      return b;
+    }
+    var pager=document.createElement('div');pager.className='pager';
+    pager.appendChild(arrow('Previous '+name+' entries','‹',-1));pager.appendChild(count);pager.appendChild(arrow('More '+name+' entries','›',1));
+    head.appendChild(pager);
+    function show(p,pick){
+      page=(p+pages)%pages;
+      items.forEach(function(b,i){b.hidden=Math.floor(i/PER)!==page});
+      ghost.hidden=items.length-page*PER>=PER;
+      count.textContent=(page+1)+' / '+pages;
+      if(pick)select(items[page*PER].getAttribute('data-proj'),false);
+    }
+    items.forEach(function(b,i){reveal[b.getAttribute('data-proj')]=function(){var p=Math.floor(i/PER);if(p!==page)show(p,false)}});
+    show(0,false);
+  });
+  pickers=[].slice.call(document.querySelectorAll('[data-proj]'));
+  function select(id,scroll){
+    var card=document.getElementById(id);
+    if(!card)return;
+    if(reveal[id])reveal[id]();
+    if(id!==current){
+      current=id;
+      /* An entry is one card, or a set of cards shown one under the other. */
+      var parts=card.classList.contains('card-set')?[].slice.call(card.children):[card];
+      detail.innerHTML=parts.map(function(c){return '<article class="card card--lead">'+c.innerHTML+'</article>'}).join('');
+      pickers.forEach(function(p){
+        var on=p.getAttribute('data-proj')===id;
+        p.classList.toggle('is-sel',on);
+        if(p.tagName==='BUTTON')p.setAttribute('aria-pressed',String(on));
+      });
+    }
+    if(scroll){
+      var r=detail.getBoundingClientRect();
+      if(r.top>window.innerHeight-120||r.bottom<80)detail.scrollIntoView({block:'nearest'});
+    }
+  }
+  pickers.forEach(function(p){
+    var id=p.getAttribute('data-proj');
+    p.addEventListener('mouseenter',function(){select(id,false)});
+    p.addEventListener('focus',function(){select(id,false)});
+    p.addEventListener('click',function(e){e.preventDefault();select(id,true)});
+  });
+  /* The publications list is closed until asked for: by its button, by the Publications button in the intro, or by a
+     link to #publications. */
+  var btn=document.getElementById('toggle-all'),all=document.getElementById('publications');
+  function setOpen(open){
+    if(!btn||!all)return;
+    all.classList.toggle('is-open',open);
+    btn.setAttribute('aria-expanded',String(open));
+    btn.textContent=open?'Hide the publications list':'Show all publications as a list';
+  }
+  if(btn&&all){
+    btn.addEventListener('click',function(){setOpen(!all.classList.contains('is-open'))});
+    [].forEach.call(document.querySelectorAll('a[href="#publications"]'),function(a){
+      a.addEventListener('click',function(){setOpen(true);if(location.hash==='#publications')all.scrollIntoView()});
+    });
+  }
+  function fromHash(){
+    var m=/^#(p-0\d)$/.exec(location.hash);
+    if(m)select(m[1],false);
+    if(location.hash==='#publications')setOpen(true);
+  }
+  window.addEventListener('hashchange',fromHash);
+  fromHash();
+  if(!current)select('p-02',false);
+})();
+</script>
+<script>
+/* Publications list: pressing a filter shows only the entries tagged with it; pressing it again shows all. A group whose
+   entries are all filtered out hides its heading too. */
+(function(){
+  var box=document.getElementById('publications'),reset=document.getElementById('domain-reset');
+  if(!box)return;
+  var btns=[].slice.call(box.querySelectorAll('.domain')),pubs=[].slice.call(box.querySelectorAll('.pub[data-domains]')),groups=[].slice.call(box.querySelectorAll('.pub-group'));
+  if(!btns.length)return;
+  function apply(f){
+    btns.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.filter===f))});
+    pubs.forEach(function(p){p.hidden=!!f&&p.dataset.domains.split(' ').indexOf(f)<0});
+    groups.forEach(function(g){g.hidden=!g.querySelector('.pub:not([hidden])')});
+    if(reset)reset.hidden=!f;
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){apply(b.getAttribute('aria-pressed')==='true'?'':b.dataset.filter)})});
+  if(reset)reset.addEventListener('click',function(){apply('')});
+})();
+</script>
+<script>
+/* Tabs: the address hash picks the page (#research, #experience, ...); no hash means About. #publications is the
+   list inside the Research tab.
+   The hero stays on screen for every tab, so choosing a tab also brings the tab row to the top. */
+(function(){
+  var views=[].slice.call(document.querySelectorAll('[data-view]'));
+  if(!views.length)return;
+  var tabs=[].slice.call(document.querySelectorAll('[data-tab]')),bar=document.querySelector('.tabs-in'),anchor=document.getElementById('tabs-anchor'),current=null,first=true;
+  function route(){
+    var id='';
+    try{id=decodeURIComponent(location.hash.slice(1))}catch(e){}
+    var el=id?document.getElementById(id):null;
+    var view=el?el.closest('[data-view]'):null;
+    if(el&&!view){first=false;return}
+    var name=view?view.dataset.view:'about',changed=name!==current;
+    current=name;
+    views.forEach(function(v){v.classList.toggle('is-active',v.dataset.view===name)});
+    tabs.forEach(function(a){
+      if(a.dataset.tab===name){
+        a.setAttribute('aria-current','page');
+        if(bar)bar.scrollLeft=a.offsetLeft-(bar.clientWidth-a.offsetWidth)/2;
+      }else a.removeAttribute('aria-current');
+    });
+    if(view&&anchor){
+      var root=document.querySelector('[data-view="'+name+'"]');
+      if(el!==root)el.scrollIntoView({behavior:changed?'instant':'auto'});
+      else window.scrollTo({top:anchor.getBoundingClientRect().top+window.scrollY,behavior:first?'instant':'auto'});
+    }
+    first=false;
+  }
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+</body>
+</html>
